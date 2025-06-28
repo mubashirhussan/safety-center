@@ -10,8 +10,8 @@ export default function LoginPage() {
       />
 
       {/* Main Content */}
-      <main className="py-16 bg  max-w-7xl mx-auto">
-        <div className="max-w-md">
+      <main className="py-16 max-w-7xl mx-auto">
+        <div className="max-w-md px-4 md:px-6 lg:px-6 xl:p-0">
           <RegisterForm />
         </div>
       </main>

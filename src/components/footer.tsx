@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -13,7 +13,7 @@ export default function Footer() {
               alt="Max Planck Institute of Quantum Optics"
               width={800}
               height={400}
-              className="h-24 w-auto max-w-full"
+              className="h-16 md:h-24 w-auto max-w-full"
             />
           </div>
 
