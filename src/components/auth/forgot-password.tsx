@@ -48,14 +48,14 @@ export function ForgotForm() {
 
       <CardFooter className="flex justify-center space-x-1 px-8">
         <Link
-          href="/register"
+          href="/auth/register"
           className="text-blue-600 hover:text-blue-800 text-sm font-medium"
         >
           Register account
         </Link>
         <span className="text-gray-400 text-sm">|</span>
         <Link
-          href="/forgot-password"
+          href="/auth/forgot-password"
           className="text-blue-600 hover:text-blue-800 text-sm font-medium"
         >
           Forgot password?
