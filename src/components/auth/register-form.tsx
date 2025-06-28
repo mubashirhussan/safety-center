@@ -103,7 +103,7 @@ export function RegisterForm() {
       <div className="relative">
         <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 z-10" />
         <Select onValueChange={(value) => handleChange("leader", value)}>
-          <SelectTrigger className="pl-10 h-12 bg-white">
+          <SelectTrigger className="w-full pl-10 h-12 bg-white focus:ring-2 focus:ring-blue-500">
             <SelectValue placeholder="Select leader" />
           </SelectTrigger>
           <SelectContent>
@@ -117,7 +117,7 @@ export function RegisterForm() {
       <div className="relative">
         <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 z-10" />
         <Select onValueChange={(value) => handleChange("department", value)}>
-          <SelectTrigger className="pl-10 h-12 bg-white">
+          <SelectTrigger className="w-full pl-10 h-12 bg-white focus:ring-2 focus:ring-blue-500">
             <SelectValue placeholder="Select department" />
           </SelectTrigger>
           <SelectContent>
