@@ -1,12 +1,12 @@
-import { Book, Menu, Sunset, Trees, Zap } from 'lucide-react';
+import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,15 +14,16 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
+} from "@/components/ui/navigation-menu";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import Image from 'next/image';
+} from "@/components/ui/sheet";
+import Image from "next/image";
+import Link from "next/link";
 
 interface MenuItem {
   title: string;
@@ -54,86 +55,86 @@ interface Navbar1Props {
 
 const Navbar = ({
   logo = {
-    url: '/',
-    src: '/safety-center-logo.jpg',
-    alt: 'logo',
-    title: 'Safety Center',
+    url: "/",
+    src: "/safety-center-logo.jpg",
+    alt: "logo",
+    title: "Safety Center",
   },
   menu = [
     // { title: 'Home', url: '#' },
     {
-      title: 'Departments',
-      url: '#',
+      title: "Departments",
+      url: "#",
       items: [
         {
-          title: 'Blog',
-          description: 'The latest industry news, updates, and info',
+          title: "Blog",
+          description: "The latest industry news, updates, and info",
           icon: <Book className="size-5 shrink-0" />,
-          url: '#',
+          url: "#",
         },
         {
-          title: 'Company',
-          description: 'Our mission is to innovate and empower the world',
+          title: "Company",
+          description: "Our mission is to innovate and empower the world",
           icon: <Trees className="size-5 shrink-0" />,
-          url: '#',
+          url: "#",
         },
         {
-          title: 'Careers',
-          description: 'Browse job listing and discover our workspace',
+          title: "Careers",
+          description: "Browse job listing and discover our workspace",
           icon: <Sunset className="size-5 shrink-0" />,
-          url: '#',
+          url: "#",
         },
         {
-          title: 'Support',
+          title: "Support",
           description:
-            'Get in touch with our support team or visit our community forums',
+            "Get in touch with our support team or visit our community forums",
           icon: <Zap className="size-5 shrink-0" />,
-          url: '#',
+          url: "#",
         },
       ],
     },
     {
-      title: 'Safety Courses',
-      url: '#',
+      title: "Safety Courses",
+      url: "#",
       items: [
         {
-          title: 'Help Center',
-          description: 'Get all the answers you need right here',
+          title: "Help Center",
+          description: "Get all the answers you need right here",
           icon: <Zap className="size-5 shrink-0" />,
-          url: '#',
+          url: "#",
         },
         {
-          title: 'Contact Us',
-          description: 'We are here to help you with any questions you have',
+          title: "Contact Us",
+          description: "We are here to help you with any questions you have",
           icon: <Sunset className="size-5 shrink-0" />,
-          url: '#',
+          url: "#",
         },
         {
-          title: 'Status',
-          description: 'Check the current status of our services and APIs',
+          title: "Status",
+          description: "Check the current status of our services and APIs",
           icon: <Trees className="size-5 shrink-0" />,
-          url: '#',
+          url: "#",
         },
         {
-          title: 'Terms of Service',
-          description: 'Our terms and conditions for using our services',
+          title: "Terms of Service",
+          description: "Our terms and conditions for using our services",
           icon: <Book className="size-5 shrink-0" />,
-          url: '#',
+          url: "#",
         },
       ],
     },
     {
-      title: 'Contact',
-      url: '#',
+      title: "Contact",
+      url: "#",
     },
     {
-      title: 'Deutsch',
-      url: '#',
+      title: "Deutsch",
+      url: "#",
     },
   ],
   auth = {
-    login: { title: 'Login', url: '#' },
-    signup: { title: 'Sign up', url: '#' },
+    login: { title: "Login", url: "/auth/login" },
+    signup: { title: "Sign up", url: "/auth/register" },
   },
 }: Navbar1Props) => {
   return (
@@ -164,11 +165,22 @@ const Navbar = ({
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
-            <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="bg-[#28485D] text-white"
+            >
+              <Link href={auth.login.url}>{auth.login.title}</Link>
             </Button>
-            <Button asChild size="sm">
-              <a href={auth.signup.url}>{auth.signup.title}</a>
+
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="bg-[#28485D] text-white"
+            >
+              <Link href={auth.signup.url}>{auth.signup.title}</Link>
             </Button>
           </div>
         </nav>
@@ -205,10 +217,10 @@ const Navbar = ({
 
                   <div className="flex flex-col gap-3">
                     <Button asChild variant="outline">
-                      <a href={auth.login.url}>{auth.login.title}</a>
+                      <Link href={auth.login.url}>{auth.login.title}</Link>
                     </Button>
-                    <Button asChild>
-                      <a href={auth.signup.url}>{auth.signup.title}</a>
+                    <Button asChild variant="outline">
+                      <Link href={auth.signup.url}>{auth.signup.title}</Link>
                     </Button>
                   </div>
                 </div>
