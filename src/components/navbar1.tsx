@@ -164,9 +164,9 @@ const Navbar = ({
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a href={logo.url} className="flex items-center gap-2">
-              <img src={logo.src} className="max-h-8" alt={logo.alt} />
-            </a>
+            <Link href={logo.url} className="flex items-center gap-2">
+              <Image src={logo.src} alt="..." fill className="max-h-8" />
+            </Link>
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
@@ -176,9 +176,14 @@ const Navbar = ({
               <SheetContent className="overflow-y-auto">
                 <SheetHeader>
                   <SheetTitle>
-                    <a href={logo.url} className="flex items-center gap-2">
-                      <img src={logo.src} className="max-h-8" alt={logo.alt} />
-                    </a>
+                    <Link href={logo.url} className="flex items-center gap-2">
+                      <Image
+                        src={logo.src}
+                        alt="..."
+                        fill
+                        className="max-h-8"
+                      />
+                    </Link>
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col gap-6 p-4">

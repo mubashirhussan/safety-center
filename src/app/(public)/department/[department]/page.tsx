@@ -5,18 +5,16 @@ import Header from "@/components/ui/department-header-section";
 import { getDepartmentData } from "@/lib/department";
 import { notFound } from "next/navigation";
 
-interface PageProps {
-  params: {
-    department: string;
-  };
+interface DepartmentPageProps {
+  params: Promise<{ department: string }>;
 }
 
-export default async function DepartmentPage(props: PageProps) {
-  const param = await props.params;
-  const departmentData = await getDepartmentData(param.department);
+export default async function DepartmentPage({ params }: DepartmentPageProps) {
+  const { department } = await params;
+  const departmentData = await getDepartmentData(department);
 
   if (!departmentData) {
-    notFound();
+    return notFound();
   }
 
   return (
@@ -28,7 +26,6 @@ export default async function DepartmentPage(props: PageProps) {
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               {departmentData.courses.title}
             </h2>
-
             {"items" in departmentData.courses ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
                 {departmentData.courses.items.map((course, index) => (
@@ -39,11 +36,9 @@ export default async function DepartmentPage(props: PageProps) {
               <CoursesSection {...departmentData.courses} />
             )}
           </div>
-
           <NewsSection {...departmentData.news} />
         </div>
       </div>
-
       <LegalBackground content={departmentData.legalBackground} />
     </div>
   );
