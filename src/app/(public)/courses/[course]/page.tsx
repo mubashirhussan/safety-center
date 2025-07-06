@@ -5,7 +5,7 @@ import { markdownContent } from "@/components/ui/test-markdown";
 // import MarkdownViewer from '@/components/MarkdownViewer'
 
 interface Props {
-  params: { course: string };
+  params: Promise<{ course: string }>;
 }
 // interface CourseData {
 //   title: string;
@@ -25,13 +25,15 @@ interface Props {
 //   };
 // }
 export default async function CoursePage({ params }: Props) {
+  const { course } = await params;
+
   //   const course = await getCourseBySlug(params.course);
 
   //   if (!course) return notFound();
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">{params.course}</h1>
+      <h1 className="text-3xl font-bold mb-4">{course}</h1>
       <MarkdownContent content={markdownContent} />
     </div>
   );
