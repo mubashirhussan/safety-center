@@ -1,4 +1,4 @@
-import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
+import { Book, Menu, Trees, Zap } from "lucide-react";
 
 import {
   Accordion,
@@ -85,17 +85,17 @@ const Navbar = ({
       url: "#",
       items: [
         {
-          title: "Administration",
+          title: "Work and fire protection",
           description: "Get all the answers you need right here",
           icon: <Zap className="size-5 shrink-0" />,
-          url: "#",
+          url: "/courses/work-and-fire-protection",
         },
-        {
-          title: "Spectroscopy",
-          description: "We are here to help you with any questions you have",
-          icon: <Sunset className="size-5 shrink-0" />,
-          url: "#",
-        },
+        // {
+        //   title: "Spectroscopy",
+        //   description: "We are here to help you with any questions you have",
+        //   icon: <Sunset className="size-5 shrink-0" />,
+        //   url: "#",
+        // },
       ],
     },
     {
@@ -105,6 +105,10 @@ const Navbar = ({
     {
       title: "Deutsch",
       url: "#",
+    },
+    {
+      title: "Emergency",
+      url: "/emergency",
     },
   ],
   auth = {
