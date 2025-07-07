@@ -1,12 +1,12 @@
-import { Book, Menu, Trees, Zap } from 'lucide-react';
+import { Book, Menu, Trees, Zap } from "lucide-react";
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,16 +14,16 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
+} from "@/components/ui/navigation-menu";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import Image from 'next/image';
-import Link from 'next/link';
+} from "@/components/ui/sheet";
+import Image from "next/image";
+import Link from "next/link";
 
 interface MenuItem {
   title: string;
@@ -55,40 +55,40 @@ interface Navbar1Props {
 
 const Navbar = ({
   logo = {
-    url: '/',
-    src: '/safety-center-logo.jpg',
-    alt: 'logo',
-    title: 'Safety Center',
+    url: "/",
+    src: "/safety-center-logo.jpg",
+    alt: "logo",
+    title: "Safety Center",
   },
   menu = [
     // { title: 'Home', url: '#' },
     {
-      title: 'Departments',
-      url: '#',
+      title: "Departments",
+      url: "#",
       items: [
         {
-          title: 'Administration',
-          description: 'The latest industry news, updates, and info',
+          title: "Administration",
+          description: "The latest industry news, updates, and info",
           icon: <Book className="size-5 shrink-0" />,
-          url: '/department/administration',
+          url: "/department/administration",
         },
         {
-          title: 'Spectroscopy',
-          description: 'Our mission is to innovate and empower the world',
+          title: "Spectroscopy",
+          description: "Our mission is to innovate and empower the world",
           icon: <Trees className="size-5 shrink-0" />,
-          url: '/department/spectroscopy',
+          url: "/department/spectroscopy",
         },
       ],
     },
     {
-      title: 'Safety Courses',
-      url: '#',
+      title: "Safety Courses",
+      url: "#",
       items: [
         {
-          title: 'Work and fire protection',
-          description: 'Get all the answers you need right here',
+          title: "Work and fire protection",
+          description: "Get all the answers you need right here",
           icon: <Zap className="size-5 shrink-0" />,
-          url: '/courses/work-and-fire-protection',
+          url: "/courses/work-and-fire-protection",
         },
         // {
         //   title: "Spectroscopy",
@@ -99,21 +99,21 @@ const Navbar = ({
       ],
     },
     {
-      title: 'Contact',
-      url: '#',
+      title: "Contact",
+      url: "#",
     },
     {
-      title: 'Deutsch',
-      url: '#',
+      title: "Deutsch",
+      url: "#",
     },
     {
-      title: 'Emergency',
-      url: '/emergency',
+      title: "Emergency",
+      url: "/emergency",
     },
   ],
   auth = {
-    login: { title: 'Login', url: '/auth/login' },
-    signup: { title: 'Sign up', url: '/auth/register' },
+    login: { title: "Login", url: "/auth/login" },
+    signup: { title: "Sign up", url: "/auth/register" },
   },
 }: Navbar1Props) => {
   return (
@@ -123,18 +123,22 @@ const Navbar = ({
         <nav className="hidden justify-between lg:flex">
           <div className="flex items-center gap-6">
             {/* Logo */}
-            <a href={logo.url} className="flex items-center gap-2">
-              <Image
-                src={logo.src}
-                className="h-14 w-auto"
-                height={500}
-                width={1000}
-                alt={logo.alt}
-              />
+            <Link href={logo.url} className="flex items-center gap-2">
+              <div className="relative">
+                {" "}
+                {/* Adjust width as needed */}
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={600}
+                  height={300}
+                  className="object-contain h-12 md:h-20 w-auto max-w-full"
+                />
+              </div>
               <span className="text-sm text-gray-400 font-semibold tracking-tighter">
                 {logo.title}
               </span>
-            </a>
+            </Link>
           </div>
           <div className="flex gap-2 items-center">
             <div className="flex items-center">
@@ -168,9 +172,16 @@ const Navbar = ({
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href={logo.url} className="flex items-center gap-2">
-              <Image src={logo.src} alt="..." fill className="max-h-8" />
+            <Link href={logo.url} className="flex items-center gap-2 relative ">
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={600}
+                height={300}
+                className="object-contain h-12 w-auto max-w-full"
+              />
             </Link>
+
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
