@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import type React from "react";
+import type React from 'react';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { CardFooter } from "@/components/ui/card";
-import { Mail } from "lucide-react";
-import Link from "next/link";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { CardFooter } from '@/components/ui/card';
+import { Mail } from 'lucide-react';
+import Link from 'next/link';
 
 export function ForgotForm() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
-    console.log("Login attempt:", { email });
+    console.log('Login attempt:', { email });
   };
 
   return (
@@ -41,7 +41,8 @@ export function ForgotForm() {
 
       <Button
         type="submit"
-        className="w-full h-12 bg-blue-600 hover:bg-blue-700 cursor-pointer text-white font-medium"
+        variant="outline"
+        className="w-full h-12 bg-[#28485D]  cursor-pointer text-white font-medium"
       >
         Send Email
       </Button>

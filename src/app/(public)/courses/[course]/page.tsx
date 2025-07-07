@@ -266,7 +266,7 @@ export default function DocumentLayout() {
               key={section.id}
               id={section.id}
               data-section
-              className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 mb-8"
+              className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 mb-8 scroll-mt-20"
             >
               <h1 className="text-2xl font-bold text-gray-800 mb-8 tracking-wide">
                 {section.title}
