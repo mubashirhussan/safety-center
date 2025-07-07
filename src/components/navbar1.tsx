@@ -1,12 +1,12 @@
-import { Book, Menu, Trees, Zap } from "lucide-react";
+import { Book, Menu, Trees, Zap } from 'lucide-react';
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,16 +14,16 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+} from '@/components/ui/navigation-menu';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import Image from "next/image";
-import Link from "next/link";
+} from '@/components/ui/sheet';
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface MenuItem {
   title: string;
@@ -55,40 +55,40 @@ interface Navbar1Props {
 
 const Navbar = ({
   logo = {
-    url: "/",
-    src: "/safety-center-logo.jpg",
-    alt: "logo",
-    title: "Safety Center",
+    url: '/',
+    src: '/safety-center-logo.jpg',
+    alt: 'logo',
+    title: 'Safety Center',
   },
   menu = [
     // { title: 'Home', url: '#' },
     {
-      title: "Departments",
-      url: "#",
+      title: 'Departments',
+      url: '#',
       items: [
         {
-          title: "Administration",
-          description: "The latest industry news, updates, and info",
+          title: 'Administration',
+          description: 'The latest industry news, updates, and info',
           icon: <Book className="size-5 shrink-0" />,
-          url: "/department/administration",
+          url: '/department/administration',
         },
         {
-          title: "Spectroscopy",
-          description: "Our mission is to innovate and empower the world",
+          title: 'Spectroscopy',
+          description: 'Our mission is to innovate and empower the world',
           icon: <Trees className="size-5 shrink-0" />,
-          url: "/department/spectroscopy",
+          url: '/department/spectroscopy',
         },
       ],
     },
     {
-      title: "Safety Courses",
-      url: "#",
+      title: 'Safety Courses',
+      url: '#',
       items: [
         {
-          title: "Work and fire protection",
-          description: "Get all the answers you need right here",
+          title: 'Work and fire protection',
+          description: 'Get all the answers you need right here',
           icon: <Zap className="size-5 shrink-0" />,
-          url: "/courses/work-and-fire-protection",
+          url: '/courses/work-and-fire-protection',
         },
         // {
         //   title: "Spectroscopy",
@@ -99,25 +99,25 @@ const Navbar = ({
       ],
     },
     {
-      title: "Contact",
-      url: "#",
+      title: 'Contact',
+      url: '#',
     },
     {
-      title: "Deutsch",
-      url: "#",
+      title: 'Deutsch',
+      url: '#',
     },
     {
-      title: "Emergency",
-      url: "/emergency",
+      title: 'Emergency',
+      url: '/emergency',
     },
   ],
   auth = {
-    login: { title: "Login", url: "/auth/login" },
-    signup: { title: "Sign up", url: "/auth/register" },
+    login: { title: 'Login', url: '/auth/login' },
+    signup: { title: 'Sign up', url: '/auth/register' },
   },
 }: Navbar1Props) => {
   return (
-    <section className="px-4 py-4">
+    <section className="fixed top-0 left-0 w-full z-50 bg-white shadow px-4 py-4">
       <div className=" mx-auto">
         {/* Desktop Menu */}
         <nav className="hidden justify-between lg:flex">
