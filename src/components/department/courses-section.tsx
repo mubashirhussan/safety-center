@@ -1,15 +1,15 @@
-import { AlertTriangle, BookOpen, Play } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { AlertTriangle, BookOpen, Play } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface CourseButton {
   text: string;
-  variant: "primary" | "secondary";
+  variant: 'primary' | 'secondary' | 'outline';
 }
 
 interface CoursesSectionProps {
   title: string;
   subtitle: string;
-  iconType: "warning" | "book" | "play";
+  iconType: 'warning' | 'book' | 'play';
   buttons: CourseButton[];
 }
 
@@ -22,7 +22,6 @@ const iconMap = {
 export default function CoursesSection({
   subtitle,
   iconType,
-  buttons,
 }: CoursesSectionProps) {
   const IconComponent = iconMap[iconType];
 
@@ -39,18 +38,21 @@ export default function CoursesSection({
           </div>
 
           <div className="space-y-3">
-            {buttons.map((button, index) => (
-              <Button
-                key={index}
-                className={`w-full ${
-                  button.variant === "primary"
-                    ? "bg-blue-600 hover:bg-blue-700 text-white"
-                    : "bg-gray-600 hover:bg-gray-700 text-white"
-                }`}
-              >
-                {button.text}
-              </Button>
-            ))}
+            <Button
+              type="submit"
+              variant="outline"
+              className="w-full bg-[#28485D] text-white font-medium  cursor-pointer"
+            >
+              Start course
+            </Button>
+
+            <Button
+              type="submit"
+              variant="outline"
+              className="w-full bg-white text-[#28485D] border border-[#28485D] font-medium hover:bg-[#28485D] hover:text-white cursor-pointer"
+            >
+              Start test
+            </Button>
           </div>
         </div>
       </div>

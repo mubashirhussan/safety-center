@@ -1,14 +1,13 @@
-import Footer from "@/components/footer";
-import { Navbar } from "@/components/navbar1";
+import Footer from '@/components/footer';
+import { Navbar } from '@/components/navbar1';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
 }
 export default async function PublicLayout({ children }: PublicLayoutProps) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="bg-[#F1F5F8]">
       <Navbar />
-
       <main className="">{children}</main>
       <Footer />
     </div>

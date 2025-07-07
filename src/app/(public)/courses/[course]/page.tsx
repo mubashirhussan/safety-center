@@ -230,9 +230,9 @@ export default function DocumentLayout() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50 max-w-6xl mx-auto">
+    <div className="flex min-h-screen  max-w-6xl mx-auto">
       {/* Sidebar - Outline */}
-      <div className="w-80 bg-gray-100 flex mt-4 flex-col fixed h-full">
+      <div className="w-80  flex mt-4 flex-col fixed h-full">
         <div className="p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-6">Outline</h2>
 
