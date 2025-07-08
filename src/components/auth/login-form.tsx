@@ -10,18 +10,34 @@ import { CardFooter } from '@/components/ui/card';
 import { Mail, Lock } from 'lucide-react';
 import Link from 'next/link';
 
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 export function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const [error, setError] = useState('');
+  const router = useRouter();
+  const handleSubmit = async (e: React.FormEvent) => {
+    debugger;
     e.preventDefault();
     // Handle login logic here
     console.log('Login attempt:', { email, password });
+    const res = await signIn('credentials', {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (res?.ok) {
+      router.push('/my-account/my-info'); // protected route
+    } else {
+      setError('Invalid email or password');
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {error && <p className="text-red-500">{error}</p>}
       <div className="space-y-2">
         <Label htmlFor="email" className="sr-only">
           Email

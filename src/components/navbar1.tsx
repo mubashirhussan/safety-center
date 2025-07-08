@@ -1,12 +1,12 @@
-import { Book, Menu, Trees, Zap } from "lucide-react";
-
+import { Book, Menu, Trees, Zap } from 'lucide-react';
+import { auth } from '@/auth';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,16 +14,16 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+} from '@/components/ui/navigation-menu';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import Image from "next/image";
-import Link from "next/link";
+} from '@/components/ui/sheet';
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface MenuItem {
   title: string;
@@ -41,7 +41,7 @@ interface Navbar1Props {
     title: string;
   };
   menu?: MenuItem[];
-  auth?: {
+  authLinks?: {
     login: {
       title: string;
       url: string;
@@ -53,42 +53,42 @@ interface Navbar1Props {
   };
 }
 
-const Navbar = ({
+const Navbar = async ({
   logo = {
-    url: "/",
-    src: "/safety-center-logo.jpg",
-    alt: "logo",
-    title: "Safety Center",
+    url: '/',
+    src: '/safety-center-logo.jpg',
+    alt: 'logo',
+    title: 'Safety Center',
   },
   menu = [
     // { title: 'Home', url: '#' },
     {
-      title: "Departments",
-      url: "#",
+      title: 'Departments',
+      url: '#',
       items: [
         {
-          title: "Administration",
-          description: "The latest industry news, updates, and info",
+          title: 'Administration',
+          description: 'The latest industry news, updates, and info',
           icon: <Book className="size-5 shrink-0" />,
-          url: "/department/administration",
+          url: '/department/administration',
         },
         {
-          title: "Spectroscopy",
-          description: "Our mission is to innovate and empower the world",
+          title: 'Spectroscopy',
+          description: 'Our mission is to innovate and empower the world',
           icon: <Trees className="size-5 shrink-0" />,
-          url: "/department/spectroscopy",
+          url: '/department/spectroscopy',
         },
       ],
     },
     {
-      title: "Safety Courses",
-      url: "#",
+      title: 'Safety Courses',
+      url: '#',
       items: [
         {
-          title: "Work and fire protection",
-          description: "Get all the answers you need right here",
+          title: 'Work and fire protection',
+          description: 'Get all the answers you need right here',
           icon: <Zap className="size-5 shrink-0" />,
-          url: "/courses/work-and-fire-protection",
+          url: '/courses/work-and-fire-protection',
         },
         // {
         //   title: "Spectroscopy",
@@ -99,23 +99,24 @@ const Navbar = ({
       ],
     },
     {
-      title: "Contact",
-      url: "#",
+      title: 'Contact',
+      url: '#',
     },
     {
-      title: "Deutsch",
-      url: "#",
+      title: 'Deutsch',
+      url: '#',
     },
     {
-      title: "Emergency",
-      url: "/emergency",
+      title: 'Emergency',
+      url: '/emergency',
     },
   ],
-  auth = {
-    login: { title: "Login", url: "/auth/login" },
-    signup: { title: "Sign up", url: "/auth/register" },
+  authLinks = {
+    login: { title: 'Login', url: '/auth/login' },
+    signup: { title: 'Sign up', url: '/auth/register' },
   },
 }: Navbar1Props) => {
+  const session = await auth();
   return (
     <section className="fixed top-0 left-0 w-full z-50 bg-white shadow px-4 py-4">
       <div className=" mx-auto">
@@ -125,7 +126,7 @@ const Navbar = ({
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
               <div className="relative">
-                {" "}
+                {' '}
                 {/* Adjust width as needed */}
                 <Image
                   src={logo.src}
@@ -148,23 +149,44 @@ const Navbar = ({
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="bg-[#28485D] text-white"
-            >
-              <Link href={auth.login.url}>{auth.login.title}</Link>
-            </Button>
+            {session ? (
+              <>
+                <form action="/api/auth/signout" method="POST">
+                  <Button
+                    type="submit"
+                    size="sm"
+                    variant="outline"
+                    className="bg-[#28485D] text-white"
+                  >
+                    Logout
+                  </Button>
+                </form>
+              </>
+            ) : (
+              <>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="bg-[#28485D] text-white"
+                >
+                  <Link href={authLinks.login.url}>
+                    {authLinks.login.title}
+                  </Link>
+                </Button>
 
-            <Button
-              asChild
-              size="sm"
-              variant="outline"
-              className="bg-[#28485D] text-white"
-            >
-              <Link href={auth.signup.url}>{auth.signup.title}</Link>
-            </Button>
+                <Button
+                  asChild
+                  size="sm"
+                  variant="outline"
+                  className="bg-[#28485D] text-white"
+                >
+                  <Link href={authLinks.signup.url}>
+                    {authLinks.signup.title}
+                  </Link>
+                </Button>
+              </>
+            )}
           </div>
         </nav>
 
@@ -211,12 +233,28 @@ const Navbar = ({
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
-                      <Link href={auth.login.url}>{auth.login.title}</Link>
-                    </Button>
-                    <Button asChild variant="outline">
-                      <Link href={auth.signup.url}>{auth.signup.title}</Link>
-                    </Button>
+                    {session ? (
+                      <>
+                        <form action="/api/auth/signout" method="POST">
+                          <Button type="submit" variant="outline">
+                            Logout
+                          </Button>
+                        </form>
+                      </>
+                    ) : (
+                      <>
+                        <Button asChild variant="outline">
+                          <Link href={authLinks.login.url}>
+                            {authLinks.login.title}
+                          </Link>
+                        </Button>
+                        <Button asChild variant="outline">
+                          <Link href={authLinks.signup.url}>
+                            {authLinks.signup.title}
+                          </Link>
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </div>
               </SheetContent>
