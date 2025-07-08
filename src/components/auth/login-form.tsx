@@ -18,18 +18,16 @@ export function LoginForm() {
   const [error, setError] = useState('');
   const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
-    debugger;
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt:', { email, password });
+
     const res = await signIn('credentials', {
       redirect: false,
       email,
       password,
     });
 
-    if (res?.ok) {
-      router.push('/my-account/my-info'); // protected route
+    if (res?.ok && !res.error) {
+      router.push('/my-account/my-info');
     } else {
       setError('Invalid email or password');
     }

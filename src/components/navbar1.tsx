@@ -25,6 +25,8 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { LogoutButton } from './auth/logout-button';
+
 interface MenuItem {
   title: string;
   url: string;
@@ -151,16 +153,7 @@ const Navbar = async ({
             </div>
             {session ? (
               <>
-                <form action="/api/auth/signout" method="POST">
-                  <Button
-                    type="submit"
-                    size="sm"
-                    variant="outline"
-                    className="bg-[#28485D] text-white"
-                  >
-                    Logout
-                  </Button>
-                </form>
+                <LogoutButton />
               </>
             ) : (
               <>
@@ -235,11 +228,7 @@ const Navbar = async ({
                   <div className="flex flex-col gap-3">
                     {session ? (
                       <>
-                        <form action="/api/auth/signout" method="POST">
-                          <Button type="submit" variant="outline">
-                            Logout
-                          </Button>
-                        </form>
+                        <LogoutButton />
                       </>
                     ) : (
                       <>
