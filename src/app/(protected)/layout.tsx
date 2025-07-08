@@ -9,7 +9,7 @@ export default async function PrivateLayout({ children }: PrivateLayoutProps) {
   return (
     <div className="bg-[#F1F5F8] ">
       <Navbar />
-      <main>{children}</main>
+      <main className="mt-20">{children}</main>
       <Footer />
     </div>
   );

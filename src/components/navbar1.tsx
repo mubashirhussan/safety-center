@@ -133,7 +133,7 @@ const Navbar = async ({
                   alt={logo.alt}
                   width={600}
                   height={300}
-                  className="object-contain h-12 md:h-20 w-auto max-w-full"
+                  className="object-contain h-12  w-auto max-w-full"
                 />
               </div>
               <span className="text-sm text-gray-400 font-semibold tracking-tighter">

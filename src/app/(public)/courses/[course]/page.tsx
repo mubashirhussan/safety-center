@@ -40,7 +40,7 @@
 // }
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const outlineItems = [
   { id: 1, title: 'General rules of conduct', sectionId: 'section-1' },
@@ -191,48 +191,57 @@ const contentSections = [
 
 export default function DocumentLayout() {
   const [activeSection, setActiveSection] = useState('section-1');
-  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('[data-section]');
+      let currentSection = '';
+      let minTop = Infinity;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+
+        if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+          if (rect.top >= 0 && rect.top < minTop) {
+            minTop = rect.top;
+            currentSection = section.id;
           }
-        });
-      },
-      {
-        rootMargin: '-20% 0px -70% 0px',
-        threshold: 0.1,
-      }
-    );
+        }
+      });
 
-    const sections = document.querySelectorAll('[data-section]');
-    sections.forEach((section) => {
-      if (observerRef.current) {
-        observerRef.current.observe(section);
+      // If no section was found in view (edge case), fallback to last section
+      if (!currentSection && sections.length > 0) {
+        const last = sections[sections.length - 1];
+        const rect = last.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          currentSection = last.id;
+        }
       }
-    });
 
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
+      if (currentSection) {
+        setActiveSection(currentSection);
       }
     };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const yOffset = -80;
+      const y =
+        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
   return (
     <div className="flex min-h-screen  max-w-6xl mx-auto">
       {/* Sidebar - Outline */}
-      <div className="w-80  flex mt-4 flex-col fixed h-full">
+      <div className="w-80  flex mt-4 flex-col sticky top-20 max-h-[calc(100vh-1rem)] overflow-auto">
         <div className="p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-6">Outline</h2>
 
@@ -259,7 +268,7 @@ export default function DocumentLayout() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 ml-80 overflow-y-auto">
+      <div className="flex-1  overflow-y-auto">
         <div className="max-w-4xl mx-auto p-8">
           {contentSections.map((section) => (
             <div
