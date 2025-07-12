@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -119,4 +119,11 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* globals.css */
+.navigation-menu-content-center {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  margin-top: 0.5rem; /* optional for spacing below trigger */
 }

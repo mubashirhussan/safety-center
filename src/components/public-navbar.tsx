@@ -1,12 +1,13 @@
-import { Book, Menu, Trees, Zap } from 'lucide-react';
-import { auth } from '@/auth';
+// ❌ NO "use client" here
+import { Book, Menu, Trees, Zap } from "lucide-react";
+import { auth } from "@/auth";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,18 +15,18 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
+} from "@/components/ui/navigation-menu";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import Image from 'next/image';
-import Link from 'next/link';
-
-import { LogoutButton } from './auth/logout-button';
+} from "@/components/ui/sheet";
+import Image from "next/image";
+import Link from "next/link";
+import { LogoutButton } from "./auth/logout-button";
+// import LogoutButton from "./LogoutButton"; // make sure it's a client component if you use it
 
 interface MenuItem {
   title: string;
@@ -35,111 +36,69 @@ interface MenuItem {
   items?: MenuItem[];
 }
 
-interface Navbar1Props {
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
-  menu?: MenuItem[];
-  authLinks?: {
-    login: {
-      title: string;
-      url: string;
-    };
-    signup: {
-      title: string;
-      url: string;
-    };
-  };
-}
-
-const Navbar = async ({
-  logo = {
-    url: '/',
-    src: '/safety-center-logo.jpg',
-    alt: 'logo',
-    title: 'Safety Center',
-  },
-  menu = [
-    // { title: 'Home', url: '#' },
-    {
-      title: 'Departments',
-      url: '#',
-      items: [
-        {
-          title: 'Administration',
-          description: 'The latest industry news, updates, and info',
-          icon: <Book className="size-5 shrink-0" />,
-          url: '/department/administration',
-        },
-        {
-          title: 'Spectroscopy',
-          description: 'Our mission is to innovate and empower the world',
-          icon: <Trees className="size-5 shrink-0" />,
-          url: '/department/spectroscopy',
-        },
-      ],
-    },
-    {
-      title: 'Safety Courses',
-      url: '#',
-      items: [
-        {
-          title: 'Work and fire protection',
-          description: 'Get all the answers you need right here',
-          icon: <Zap className="size-5 shrink-0" />,
-          url: '/courses/work-and-fire-protection',
-        },
-        // {
-        //   title: "Spectroscopy",
-        //   description: "We are here to help you with any questions you have",
-        //   icon: <Sunset className="size-5 shrink-0" />,
-        //   url: "#",
-        // },
-      ],
-    },
-    {
-      title: 'Contact',
-      url: '#',
-    },
-    {
-      title: 'Deutsch',
-      url: '#',
-    },
-    {
-      title: 'Emergency',
-      url: '/emergency',
-    },
-  ],
-  authLinks = {
-    login: { title: 'Login', url: '/auth/login' },
-    signup: { title: 'Sign up', url: '/auth/register' },
-  },
-}: Navbar1Props) => {
+export default async function PublicNavbar() {
   const session = await auth();
+  const isLoggedIn = !!session;
+
+  const menu: MenuItem[] = [
+    {
+      title: "Departments",
+      url: "#",
+      items: [
+        {
+          title: "Administration",
+          description: "The latest industry news, updates, and info",
+          icon: <Book className="size-5 shrink-0" />,
+          url: "/department/administration",
+        },
+        {
+          title: "Spectroscopy",
+          description: "Our mission is to innovate and empower the world",
+          icon: <Trees className="size-5 shrink-0" />,
+          url: "/department/spectroscopy",
+        },
+      ],
+    },
+    {
+      title: "Safety Courses",
+      url: "#",
+      items: [
+        {
+          title: "Work and fire protection",
+          description: "Get all the answers you need right here",
+          icon: <Zap className="size-5 shrink-0" />,
+          url: "/courses/work-and-fire-protection",
+        },
+      ],
+    },
+    { title: "Contact", url: "/contact" },
+    { title: "Deutsch", url: "#" },
+    { title: "Emergency", url: "/emergency" },
+  ];
+
+  const filteredMenu = [
+    ...(isLoggedIn
+      ? [{ title: "My Account", url: "/my-account/my-info" }]
+      : []),
+    ...menu.filter((item) => !(isLoggedIn && item.title === "Departments")),
+  ];
+
   return (
     <section className="fixed top-0 left-0 w-full z-50 bg-white shadow px-4 py-4">
-      <div className=" mx-auto">
-        {/* Desktop Menu */}
+      <div className="mx-auto">
+        {/* Desktop */}
         <nav className="hidden justify-between lg:flex">
           <div className="flex items-center gap-6">
-            {/* Logo */}
-            <Link href={logo.url} className="flex items-center gap-2">
-              <div className="relative">
-                {' '}
-                {/* Adjust width as needed */}
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={600}
-                  height={300}
-                  className="object-contain h-12  w-auto max-w-full"
-                />
-              </div>
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/safety-center-logo.jpg"
+                alt="logo"
+                width={600}
+                height={300}
+                className="object-contain h-12 w-auto max-w-full"
+              />
               <span className="text-sm text-gray-400 font-semibold tracking-tighter">
-                {logo.title}
+                Safety Center
               </span>
             </Link>
           </div>
@@ -147,50 +106,44 @@ const Navbar = async ({
             <div className="flex items-center">
               <NavigationMenu>
                 <NavigationMenuList>
-                  {menu.map((item) => renderMenuItem(item))}
+                  {filteredMenu.map((item) => renderMenuItem(item))}
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
-            {session ? (
+
+            {!isLoggedIn ? (
               <>
-                <LogoutButton />
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="bg-[#28485D] text-white"
+                >
+                  <Link href="/auth/login">Login</Link>
+                </Button>
+                <Button
+                  asChild
+                  size="sm"
+                  variant="outline"
+                  className="bg-[#28485D] text-white"
+                >
+                  <Link href="/auth/register">Sign Up</Link>
+                </Button>
               </>
             ) : (
-              <>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="bg-[#28485D] text-white"
-                >
-                  <Link href={authLinks.login.url}>
-                    {authLinks.login.title}
-                  </Link>
-                </Button>
-
-                <Button
-                  asChild
-                  size="sm"
-                  variant="outline"
-                  className="bg-[#28485D] text-white"
-                >
-                  <Link href={authLinks.signup.url}>
-                    {authLinks.signup.title}
-                  </Link>
-                </Button>
-              </>
+              // You can use a <LogoutButton /> client component here
+              <LogoutButton />
             )}
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile */}
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link href={logo.url} className="flex items-center gap-2 relative ">
+            <Link href="/" className="flex items-center gap-2 relative ">
               <Image
-                src={logo.src}
-                alt={logo.alt}
+                src="/safety-center-logo.jpg"
+                alt="logo"
                 width={600}
                 height={300}
                 className="object-contain h-12 w-auto max-w-full"
@@ -206,9 +159,9 @@ const Navbar = async ({
               <SheetContent className="overflow-y-auto">
                 <SheetHeader>
                   <SheetTitle>
-                    <Link href={logo.url} className="flex items-center gap-2">
+                    <Link href="/" className="flex items-center gap-2">
                       <Image
-                        src={logo.src}
+                        src="/safety-center-logo.jpg"
                         alt="..."
                         fill
                         className="max-h-8"
@@ -222,27 +175,21 @@ const Navbar = async ({
                     collapsible
                     className="flex w-full flex-col gap-4"
                   >
-                    {menu.map((item) => renderMobileMenuItem(item))}
+                    {filteredMenu.map((item) => renderMobileMenuItem(item))}
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    {session ? (
+                    {!isLoggedIn ? (
                       <>
-                        <LogoutButton />
+                        <Button asChild variant="outline">
+                          <Link href="/auth/login">Login</Link>
+                        </Button>
+                        <Button asChild variant="outline">
+                          <Link href="/auth/register">Sign Up</Link>
+                        </Button>
                       </>
                     ) : (
-                      <>
-                        <Button asChild variant="outline">
-                          <Link href={authLinks.login.url}>
-                            {authLinks.login.title}
-                          </Link>
-                        </Button>
-                        <Button asChild variant="outline">
-                          <Link href={authLinks.signup.url}>
-                            {authLinks.signup.title}
-                          </Link>
-                        </Button>
-                      </>
+                      <LogoutButton />
                     )}
                   </div>
                 </div>
@@ -253,7 +200,7 @@ const Navbar = async ({
       </div>
     </section>
   );
-};
+}
 
 const renderMenuItem = (item: MenuItem) => {
   if (item.items) {
@@ -324,5 +271,3 @@ const SubMenuLink = ({ item }: { item: MenuItem }) => {
     </Link>
   );
 };
-
-export { Navbar };

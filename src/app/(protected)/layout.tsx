@@ -1,5 +1,5 @@
-import Footer from '@/components/footer';
-import { Navbar } from '@/components/navbar1';
+import Footer from "@/components/footer";
+import PublicNavbar from "@/components/public-navbar";
 
 interface PrivateLayoutProps {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ interface PrivateLayoutProps {
 export default async function PrivateLayout({ children }: PrivateLayoutProps) {
   return (
     <div className="bg-[#F1F5F8] ">
-      <Navbar />
+      <PublicNavbar />
       <main className="mt-20">{children}</main>
       <Footer />
     </div>
