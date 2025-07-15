@@ -1,5 +1,5 @@
-// ❌ NO "use client" here
-import { Book, Menu, Trees, Zap } from "lucide-react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Book, Menu, Zap } from "lucide-react";
 import { auth } from "@/auth";
 import {
   Accordion,
@@ -26,6 +26,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { LogoutButton } from "./auth/logout-button";
+import { fetchFromStrapi } from "@/lib/api";
 // import LogoutButton from "./LogoutButton"; // make sure it's a client component if you use it
 
 interface MenuItem {
@@ -39,37 +40,87 @@ interface MenuItem {
 export default async function PublicNavbar() {
   const session = await auth();
   const isLoggedIn = !!session;
+  const [depData, courseData] = await Promise.all([
+    fetchFromStrapi<any>(
+      "departments",
+      {
+        // optional: custom headers, etc.
+      },
+      {
+        fields: ["Name_en", "Slug", "Description_en"],
+      }
+    ),
+    fetchFromStrapi<any>(
+      "courses",
+      {},
+      {
+        fields: ["name_en", "slug", "description_en"],
+      }
+    ),
+  ]);
+  // const res = await fetch("http://localhost:1337/api/departments", {
+  //   headers: { "Content-Type": "application/json" },
+  //   cache: "no-store",
+  // });
+  // const departmentsResponse = await res.json();
+  const departments = depData.data || [];
+  const courses = courseData.data || [];
+  const departmentItems: MenuItem[] = departments.map((dept: any) => ({
+    title: dept.Name_en,
+    description: dept.Description_en || "",
+    icon: <Book className="size-5 shrink-0" />,
+    url: `/department/${dept.Slug || dept.id}`,
+  }));
 
+  // ✅ Fetch Courses
+  // const courseRes = await fetch("http://localhost:1337/api/courses", {
+  //   headers: { "Content-Type": "application/json" },
+  //   cache: "no-store",
+  // });
+  // const courses = (await courseRes.json()).data || [];
+  console.log("courseData", courseData);
+  const courseItems: MenuItem[] = courses.map((course: any) => ({
+    title: course.name_en,
+    description: course.description_en || "",
+    icon: <Zap className="size-5 shrink-0" />,
+    url: `/courses/${course.slug || course.id}`,
+  }));
   const menu: MenuItem[] = [
-    {
-      title: "Departments",
-      url: "#",
-      items: [
-        {
-          title: "Administration",
-          description: "The latest industry news, updates, and info",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "/department/administration",
-        },
-        {
-          title: "Spectroscopy",
-          description: "Our mission is to innovate and empower the world",
-          icon: <Trees className="size-5 shrink-0" />,
-          url: "/department/spectroscopy",
-        },
-      ],
-    },
+    { title: "Departments", url: "#", items: departmentItems },
+    // {
+    //   title: "Departments",
+    //   url: "#",
+    //   items: [
+    //     {
+    //       title: "Administration",
+    //       description: "The latest industry news, updates, and info",
+    //       icon: <Book className="size-5 shrink-0" />,
+    //       url: "/department/administration",
+    //     },
+    //     {
+    //       title: "Spectroscopy",
+    //       description: "Our mission is to innovate and empower the world",
+    //       icon: <Trees className="size-5 shrink-0" />,
+    //       url: "/department/spectroscopy",
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: "Safety Courses",
+    //   url: "#",
+    //   items: [
+    //     {
+    //       title: "Work and fire protection",
+    //       description: "Get all the answers you need right here",
+    //       icon: <Zap className="size-5 shrink-0" />,
+    //       url: "/courses/work-and-fire-protection",
+    //     },
+    //   ],
+    // },
     {
       title: "Safety Courses",
       url: "#",
-      items: [
-        {
-          title: "Work and fire protection",
-          description: "Get all the answers you need right here",
-          icon: <Zap className="size-5 shrink-0" />,
-          url: "/courses/work-and-fire-protection",
-        },
-      ],
+      items: courseItems,
     },
     { title: "Contact", url: "/contact" },
     { title: "Deutsch", url: "#" },

@@ -1,29 +1,29 @@
-import { AlertTriangle, BookOpen, Play } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+// import { AlertTriangle, BookOpen, Play } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 interface CourseButton {
   text: string;
-  variant: 'primary' | 'secondary' | 'outline';
+  variant: "primary" | "secondary" | "outline";
 }
 
 interface CoursesSectionProps {
   title: string;
   subtitle: string;
-  iconType: 'warning' | 'book' | 'play';
+  iconType: "warning" | "book" | "play";
   buttons: CourseButton[];
 }
 
-const iconMap = {
-  warning: AlertTriangle,
-  book: BookOpen,
-  play: Play,
-};
+// const iconMap = {
+//   warning: AlertTriangle,
+//   book: BookOpen,
+//   play: Play,
+// };
 
 export default function CoursesSection({
   subtitle,
-  iconType,
-}: CoursesSectionProps) {
-  const IconComponent = iconMap[iconType];
+}: // iconType,
+CoursesSectionProps) {
+  // const IconComponent = iconMap[iconType];
 
   return (
     <div>
@@ -33,7 +33,7 @@ export default function CoursesSection({
 
           <div className="flex justify-center py-4">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
-              <IconComponent className="w-8 h-8 text-gray-600" />
+              {/* <IconComponent className="w-8 h-8 text-gray-600" /> */}
             </div>
           </div>
 

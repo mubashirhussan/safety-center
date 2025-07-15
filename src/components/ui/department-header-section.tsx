@@ -1,16 +1,16 @@
 import Image from "next/image";
 
 interface HeaderProps {
-  title: string;
-  description: string;
+  Name_en: string;
+  description_en: string;
   imageUrl: string;
   imageAlt: string;
   backgroundColor?: string;
 }
 
 export default function Header({
-  title,
-  description,
+  Name_en,
+  description_en,
   imageUrl,
   imageAlt,
   backgroundColor = "bg-slate-600",
@@ -30,9 +30,9 @@ export default function Header({
           </div>
 
           <div className="order-1 lg:order-2 space-y-4">
-            <h1 className="text-2xl lg:text-3xl font-bold">{title}</h1>
+            <h1 className="text-2xl lg:text-3xl font-bold">{Name_en}</h1>
             <p className="text-sm lg:text-base leading-relaxed opacity-90">
-              {description}
+              {description_en}
             </p>
           </div>
         </div>

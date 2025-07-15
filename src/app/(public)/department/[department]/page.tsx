@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CoursesSection from "@/components/department/courses-section";
 import LegalBackground from "@/components/department/legal-background";
 import NewsSection from "@/components/department/news-section";
 import Header from "@/components/ui/department-header-section";
-import { getDepartmentData } from "@/lib/department";
+import { fetchFromStrapi } from "@/lib/api";
 import { notFound } from "next/navigation";
 
 interface DepartmentPageProps {
@@ -11,7 +12,22 @@ interface DepartmentPageProps {
 
 export default async function DepartmentPage({ params }: DepartmentPageProps) {
   const { department } = await params;
-  const departmentData = await getDepartmentData(department);
+
+  const response = await fetchFromStrapi<any>(
+    "departments",
+    {},
+    {
+      filters: {
+        Slug: {
+          $eq: department,
+        },
+      },
+      populate: "*",
+    }
+  );
+
+  console.log("response", response.data[0].image);
+  const departmentData = response.data?.[0];
 
   if (!departmentData) {
     return notFound();
@@ -19,7 +35,7 @@ export default async function DepartmentPage({ params }: DepartmentPageProps) {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header {...departmentData.header} />
+      <Header {...departmentData} />
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
@@ -28,9 +44,11 @@ export default async function DepartmentPage({ params }: DepartmentPageProps) {
             </h2>
             {"items" in departmentData.courses ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-                {departmentData.courses.items.map((course, index) => (
-                  <CoursesSection key={index} {...course} />
-                ))}
+                {departmentData.courses.items.map(
+                  (course: any, index: number) => (
+                    <CoursesSection key={index} {...course} />
+                  )
+                )}
               </div>
             ) : (
               <CoursesSection {...departmentData.courses} />
