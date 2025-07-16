@@ -92,6 +92,16 @@ export function RegisterForm() {
       if (res.ok) {
         console.log("User registered!", data);
         alert("Registration successful!");
+        // ✅ Clear form
+        setForm({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+          repeatPassword: "",
+          leader: "",
+          department: "",
+        });
         // optionally save JWT to localStorage or redirect to login
       } else {
         console.error("Error registering:", data);
