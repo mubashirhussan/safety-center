@@ -1,35 +1,35 @@
-'use client';
+"use client";
 
-import type React from 'react';
+import type React from "react";
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { CardFooter } from '@/components/ui/card';
-import { Mail, Lock } from 'lucide-react';
-import Link from 'next/link';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { CardFooter } from "@/components/ui/card";
+import { Mail, Lock } from "lucide-react";
+import Link from "next/link";
 
-import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 export function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await signIn('credentials', {
+    const res = await signIn("credentials", {
       redirect: false,
       email,
       password,
     });
 
     if (res?.ok && !res.error) {
-      router.push('/my-account/my-info');
+      router.push("/my-account/my-info");
     } else {
-      setError('Invalid email or password');
+      setError("Invalid email or password");
     }
   };
 
