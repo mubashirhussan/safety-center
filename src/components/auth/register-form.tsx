@@ -102,7 +102,6 @@ export function RegisterForm() {
           leader: "",
           department: "",
         });
-        // optionally save JWT to localStorage or redirect to login
       } else {
         console.error("Error registering:", data);
         alert(data.error?.message || "Something went wrong!");
