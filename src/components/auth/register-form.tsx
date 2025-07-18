@@ -64,6 +64,54 @@ export function RegisterForm() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   if (form.password !== form.repeatPassword) {
+  //     alert("Passwords do not match");
+  //     return;
+  //   }
+  //   debugger;
+  //   try {
+  //     const res = await fetch("http://localhost:1337/api/auth/local/register", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         username: `${form.firstName} ${form.lastName}`,
+  //         email: form.email,
+  //         password: form.password,
+  //         leader: form.leader, // ✅ only if custom fields exist
+  //         department: form.department, // ✅ only if custom fields exist
+  //       }),
+  //     });
+
+  //     const data = await res.json();
+
+  //     if (res.ok) {
+  //       console.log("User registered!", data);
+  //       alert("Registration successful!");
+  //       // ✅ Clear form
+  //       setForm({
+  //         firstName: "",
+  //         lastName: "",
+  //         email: "",
+  //         password: "",
+  //         repeatPassword: "",
+  //         leader: "",
+  //         department: "",
+  //       });
+  //     } else {
+  //       console.error("Error registering:", data);
+  //       alert(data.error?.message || "Something went wrong!");
+  //     }
+  //   } catch (err) {
+  //     console.error("Registration error:", err);
+  //     alert("Registration failed!");
+  //   }
+  // };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -71,9 +119,9 @@ export function RegisterForm() {
       alert("Passwords do not match");
       return;
     }
-    debugger;
+
     try {
-      const res = await fetch("http://localhost:1337/api/auth/local/register", {
+      const data = await fetchFromStrapi<any>("auth/local/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,28 +135,22 @@ export function RegisterForm() {
         }),
       });
 
-      const data = await res.json();
+      console.log("User registered!", data);
+      alert("Registration successful!");
 
-      if (res.ok) {
-        console.log("User registered!", data);
-        alert("Registration successful!");
-        // ✅ Clear form
-        setForm({
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-          repeatPassword: "",
-          leader: "",
-          department: "",
-        });
-      } else {
-        console.error("Error registering:", data);
-        alert(data.error?.message || "Something went wrong!");
-      }
-    } catch (err) {
+      // ✅ Clear form
+      setForm({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        repeatPassword: "",
+        leader: "",
+        department: "",
+      });
+    } catch (err: any) {
       console.error("Registration error:", err);
-      alert("Registration failed!");
+      alert(err.message || "Registration failed!");
     }
   };
 

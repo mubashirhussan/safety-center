@@ -1,4 +1,3 @@
-"use client";
 import { RegisterForm } from "@/components/auth/register-form";
 import { Header } from "@/components/ui/auth-header-section";
 
