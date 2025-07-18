@@ -1,19 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CardFooter } from "@/components/ui/card";
-import { Mail, Lock, User, Users, Building2 } from "lucide-react";
+// import { Mail, Lock, User, Users, Building2 } from "lucide-react";
+import { Mail, Lock, User } from "lucide-react";
+
 import Link from "next/link";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
 import { fetchFromStrapi } from "@/lib/api";
 
 export function RegisterForm() {
@@ -27,38 +29,38 @@ export function RegisterForm() {
     department: "",
   });
 
-  const [depData, setDepData] = useState<any[]>([]);
-  const [leaderData, setLeaderData] = useState<any[]>([]);
+  // const [depData, setDepData] = useState<any[]>([]);
+  // const [leaderData, setLeaderData] = useState<any[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [depRes, leaderRes] = await Promise.all([
-          fetchFromStrapi<any>(
-            "departments",
-            {},
-            {
-              fields: ["Name_en", "id"],
-            }
-          ),
-          fetchFromStrapi<any>(
-            "leaders",
-            {},
-            {
-              fields: ["Name", "id"],
-            }
-          ),
-        ]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const [depRes, leaderRes] = await Promise.all([
+  //         fetchFromStrapi<any>(
+  //           "departments",
+  //           {},
+  //           {
+  //             fields: ["Name_en", "id"],
+  //           }
+  //         ),
+  //         fetchFromStrapi<any>(
+  //           "leaders",
+  //           {},
+  //           {
+  //             fields: ["Name", "id"],
+  //           }
+  //         ),
+  //       ]);
 
-        setDepData(depRes.data || []);
-        setLeaderData(leaderRes.data || []);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  //       setDepData(depRes.data || []);
+  //       setLeaderData(leaderRes.data || []);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const handleChange = (field: string, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -220,7 +222,7 @@ export function RegisterForm() {
       </div>
 
       {/* Select Leader */}
-      <div className="relative">
+      {/* <div className="relative">
         <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 z-10" />
         <Select onValueChange={(value) => handleChange("leader", value)}>
           <SelectTrigger className="w-full pl-10 h-12 bg-white focus:ring-2 focus:ring-blue-500">
@@ -234,10 +236,10 @@ export function RegisterForm() {
             ))}
           </SelectContent>
         </Select>
-      </div>
+      </div> */}
 
       {/* Select Department */}
-      <div className="relative">
+      {/* <div className="relative">
         <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 z-10" />
         <Select onValueChange={(value) => handleChange("department", value)}>
           <SelectTrigger className="w-full pl-10 h-12 bg-white focus:ring-2 focus:ring-blue-500">
@@ -251,7 +253,7 @@ export function RegisterForm() {
             ))}
           </SelectContent>
         </Select>
-      </div>
+      </div> */}
 
       {/* Submit */}
       <Button
