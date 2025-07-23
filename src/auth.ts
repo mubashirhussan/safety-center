@@ -13,7 +13,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const { email, password } = credentials ?? {};
 
         // Static credentials
-        if (email === 'admin@gmail.com' && password === '123456') {
+        if (email === 'admin@gmail.com' && password === '1234') {
           return {
             id: '1',
             name: 'Admin',
