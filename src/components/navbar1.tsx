@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Book, Menu, Trees, Zap } from 'lucide-react';
 import { auth } from '@/auth';
 import {
@@ -26,9 +27,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { LogoutButton } from './auth/logout-button';
+import { LanguageSwitcher } from './language-switcher';
 
 interface MenuItem {
-  title: string;
+  title: any;
   url: string;
   description?: string;
   icon?: React.ReactNode;
@@ -105,7 +107,7 @@ const Navbar = async ({
       url: '#',
     },
     {
-      title: 'Deutsch',
+      title: <LanguageSwitcher />,
       url: '#',
     },
     {
@@ -145,7 +147,7 @@ const Navbar = async ({
           </div>
           <div className="flex gap-2 items-center">
             <div className="flex items-center">
-              <NavigationMenu>
+              <NavigationMenu translate="yes">
                 <NavigationMenuList>
                   {menu.map((item) => renderMenuItem(item))}
                 </NavigationMenuList>
@@ -258,16 +260,23 @@ const Navbar = async ({
 const renderMenuItem = (item: MenuItem) => {
   if (item.items) {
     return (
-      <NavigationMenuItem key={item.title}>
-        <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-        <NavigationMenuContent className="bg-popover text-popover-foreground">
-          {item.items.map((subItem) => (
-            <NavigationMenuLink asChild key={subItem.title} className="w-80">
-              <SubMenuLink item={subItem} />
-            </NavigationMenuLink>
-          ))}
-        </NavigationMenuContent>
-      </NavigationMenuItem>
+      <div translate="yes">
+        <NavigationMenuItem key={item.title}>
+          <NavigationMenuTrigger translate="yes">
+            <span translate="yes">{item.title}</span>
+          </NavigationMenuTrigger>
+          <NavigationMenuContent
+            className="bg-popover text-popover-foreground"
+            translate="yes"
+          >
+            {item.items.map((subItem) => (
+              <NavigationMenuLink asChild key={subItem.title} className="w-80">
+                <SubMenuLink item={subItem} />
+              </NavigationMenuLink>
+            ))}
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </div>
     );
   }
 
@@ -314,10 +323,15 @@ const SubMenuLink = ({ item }: { item: MenuItem }) => {
     >
       <div className="text-foreground">{item.icon}</div>
       <div>
-        <div className="text-sm font-semibold">{item.title}</div>
+        <div className="text-sm font-semibold" translate="yes">
+          <span translate="yes">{item.title}</span>
+        </div>
         {item.description && (
-          <p className="text-sm leading-snug text-muted-foreground">
-            {item.description}
+          <p
+            className="text-sm leading-snug text-muted-foreground"
+            translate="yes"
+          >
+            <span translate="yes">{item.description}</span>
           </p>
         )}
       </div>

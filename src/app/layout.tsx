@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import Script from 'next/script';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -24,10 +25,41 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script src="/assets/lang-config.js" strategy="beforeInteractive" />
+        <Script src="/assets/translation.js" strategy="beforeInteractive" />
+        <Script
+          src="//translate.google.com/translate_a/element.js?cb=TranslateInit"
+          strategy="afterInteractive"
+        />
+        <Script id="google-translate-init" strategy="afterInteractive">
+          {`
+    function TranslateInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en', includedLanguages: 'de,en,ur', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
+        'google_translate_element'
+      );
+    }
+
+    const observer = new MutationObserver(() => {
+      const event = document.createEvent('HTMLEvents');
+      event.initEvent('DOMSubtreeModified', true, false);
+      document.body.dispatchEvent(event);
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  `}
+        </Script>
+      </head>
+
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased ;
-]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div id="google_translate_element" className="skiptranslate"></div>
+
         {children}
       </body>
     </html>

@@ -120,3 +120,28 @@
     @apply bg-background text-foreground;
   }
 }
+.skiptranslate {
+  display: none !important;
+}
+body > .skiptranslate,
+.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-menu-frame,
+.goog-tooltip,
+.goog-te-balloon-frame {
+  display: none !important;
+  height: 0px !important;
+  visibility: hidden !important;
+  overflow: hidden !important;
+}
+
+/* Also prevent body from being pushed down */
+body {
+  top: 0px !important;
+  position: static !important;
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+}
+.skiptranslate * {
+  all: unset !important;
+}
